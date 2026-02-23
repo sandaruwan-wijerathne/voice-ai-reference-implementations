@@ -1,0 +1,43 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #0b1020;
+  color: #e5e7eb;
+}
+
+.wrap {
+  padding: 12px;
+}
+
+h1 {
+  margin: 0 0 10px;
+  font-size: 18px;
+}
+
+.row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+button {
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid #475569;
+  background: #1f2937;
+  color: #e5e7eb;
+  cursor: pointer;
+}
+
+.status, .meta, .agents {
+  margin-bottom: 8px;
+}
+
+.status {
+  color: #93c5fd;
+}
+
+.error {
+  color: #fca5a5;
+  white-space: pre-wrap;
+}

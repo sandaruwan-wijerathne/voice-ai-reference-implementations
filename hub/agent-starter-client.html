@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Agent Starter Client</title>
+  <link rel="stylesheet" href="./agent-starter-client.css">
+  <script src="https://cdn.jsdelivr.net/npm/livekit-client/dist/livekit-client.umd.js" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Agent Starter Python Client</h1>
+    <div id="status" class="status">Loading config...</div>
+    <div class="row">
+      <button id="connectBtn">Connect</button>
+      <button id="disconnectBtn">Leave</button>
+      <button id="unlockBtn">Enable audio output</button>
+    </div>
+    <div id="meta" class="meta"></div>
+    <div id="agents" class="agents"></div>
+    <div id="error" class="error"></div>
+    <div id="audioHost"></div>
+  </div>
+  <script src="./agent-starter-client.js"></script>
+</body>
+</html>

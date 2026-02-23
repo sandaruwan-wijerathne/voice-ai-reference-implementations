@@ -1,0 +1,15 @@
+[project]
+name = "pipecat-custom-nova2-twilio"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "aioboto3>=15.5.0",
+    "fastapi>=0.127.1",
+    "pipecat-ai[aws-nova-sonic,local-smart-turn-v3,runner,silero,websocket]>=0.0.102",
+    "pipecat[aws]>=0.3.0",
+    "python-dotenv>=1.2.1",
+    "twilio>=9.10.1",
+    "uvicorn>=0.41.0",
+]

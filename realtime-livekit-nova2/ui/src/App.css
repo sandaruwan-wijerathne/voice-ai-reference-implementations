@@ -1,0 +1,48 @@
+body {
+  width: 100%;
+  background-color: black;
+}
+.livekit {
+  top:0px;
+  position: absolute;
+  width: 100%;
+  padding: 10px;
+}
+.livekit .title {
+  font-size: xx-large;
+  font-weight: bold;
+  color: white;
+}
+.livekit .url {
+  font-size: large;
+  color: silver;
+  padding: 10px;
+}
+
+.livekit .audioControls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 10px 10px;
+}
+
+.livekit .audioButton {
+  border: 1px solid #6b7280;
+  border-radius: 6px;
+  padding: 6px 10px;
+  cursor: pointer;
+}
+
+.livekit .audioState {
+  color: #d1d5db;
+}
+
+.livekit .audioHint {
+  color: #fca5a5;
+  padding: 0 10px 10px;
+}
+
+.livekit .audioNote {
+  color: #d1d5db;
+  padding: 10px;
+}

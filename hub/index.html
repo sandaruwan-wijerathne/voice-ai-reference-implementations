@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Voice Demo Hub</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <header class="header">
+    <h1>Voice Demo Hub</h1>
+    <p>Realtime and traditional demos.</p>
+  </header>
+
+  <main class="content">
+    <section class="sectionWrap">
+      <h2 class="sectionTitle">Realtime Approach</h2>
+      <div class="viewer">
+        <div class="viewerHeader">
+          <div class="viewerLeft">
+            <label for="realtimeSelect">UI:</label>
+            <select id="realtimeSelect"></select>
+            <span id="realtimeStatus" class="statusBadge">Checking...</span>
+          </div>
+          <div class="panelActions">
+            <button type="button" id="realtimeReloadBtn">Reload</button>
+            <a id="realtimeOpenBtn" target="_blank" rel="noreferrer noopener">Open</a>
+          </div>
+        </div>
+        <iframe id="realtimeFrame" class="panelFrame" allow="microphone; autoplay"></iframe>
+      </div>
+    </section>
+
+    <section class="sectionWrap">
+      <h2 class="sectionTitle">Traditional Approach</h2>
+      <div class="viewer">
+        <div class="viewerHeader">
+          <div class="viewerLeft">
+            <label for="traditionalSelect">UI:</label>
+            <select id="traditionalSelect"></select>
+            <span id="traditionalStatus" class="statusBadge">Checking...</span>
+          </div>
+          <div class="panelActions">
+            <button type="button" id="traditionalReloadBtn">Reload</button>
+            <a id="traditionalOpenBtn" target="_blank" rel="noreferrer noopener">Open</a>
+          </div>
+        </div>
+        <iframe id="traditionalFrame" class="panelFrame" allow="microphone; autoplay"></iframe>
+      </div>
+    </section>
+  </main>
+
+  <script src="./main.js"></script>
+</body>
+</html>

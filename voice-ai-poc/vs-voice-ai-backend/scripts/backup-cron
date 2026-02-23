@@ -1,0 +1,1 @@
+0 */6 * * * root cd /app && /usr/local/bin/poetry run /usr/local/bin/python /app/utils/backup_db_cli.py >> /var/log/db-backup.log 2>&1

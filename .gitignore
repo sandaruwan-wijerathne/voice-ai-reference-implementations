@@ -1,0 +1,72 @@
+# -----------------------------
+# OS / Editor
+# -----------------------------
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# -----------------------------
+# Logs / runtime artifacts
+# -----------------------------
+.logs/
+*.log
+*.pid
+*.pid.lock
+
+# -----------------------------
+# Python
+# -----------------------------
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.hypothesis/
+.tox/
+.nox/
+.coverage
+.coverage.*
+htmlcov/
+dist/
+build/
+*.egg-info/
+.eggs/
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# -----------------------------
+# Node / frontend
+# -----------------------------
+node_modules/
+.npm/
+.pnpm-store/
+.yarn/
+.yarn-cache/
+.parcel-cache/
+.next/
+.nuxt/
+.svelte-kit/
+coverage/
+*.tsbuildinfo
+
+# Common frontend build outputs
+out/
+public/build/
+
+# -----------------------------
+# Environment / secrets
+# -----------------------------
+.env
+.env.*
+!.env.example
+!.env.*.example
+
+# Generated runtime config with short-lived token
+hub/agent-starter-config.json
