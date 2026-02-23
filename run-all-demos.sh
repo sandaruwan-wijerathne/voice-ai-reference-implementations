@@ -25,6 +25,28 @@ LIVEKIT_ROOM="${LIVEKIT_ROOM:-my-first-room}"
 AUTO_OPEN_BROWSER="${AUTO_OPEN_BROWSER:-true}"
 WAIT_TIMEOUT_SECONDS="${WAIT_TIMEOUT_SECONDS:-90}"
 FORCE_PROMPT="false"
+SHARED_ENV_FILE="${ROOT_DIR}/.env.shared"
+
+load_env_if_unset() {
+  local env_file="$1"
+  local line=""
+  local key=""
+  local value=""
+
+  [[ -f "${env_file}" ]] || return 0
+  while IFS= read -r line || [[ -n "${line}" ]]; do
+    line="${line#"${line%%[![:space:]]*}"}"
+    [[ -z "${line}" || "${line}" == \#* ]] && continue
+    [[ "${line}" == export[[:space:]]* ]] && line="${line#export }"
+    if [[ "${line}" =~ ^([A-Za-z_][A-Za-z0-9_]*)[[:space:]]*=(.*)$ ]]; then
+      key="${BASH_REMATCH[1]}"
+      value="${BASH_REMATCH[2]}"
+      if [[ -z "${!key+x}" ]]; then
+        eval "export ${key}=${value}"
+      fi
+    fi
+  done < "${env_file}"
+}
 
 while getopts ":p" opt; do
   case "${opt}" in
@@ -36,6 +58,8 @@ while getopts ":p" opt; do
   esac
 done
 shift $((OPTIND - 1))
+
+load_env_if_unset "${SHARED_ENV_FILE}"
 
 for cmd in bash curl python3 lk; do
   if ! command -v "${cmd}" >/dev/null 2>&1; then
@@ -54,26 +78,21 @@ done
 mkdir -p "${LOG_DIR}"
 
 build_agent_starter_client_config() {
-  if [[ ! -f "${AGENT_STARTER_DIR}/.env" ]]; then
-    echo "Error: missing ${AGENT_STARTER_DIR}/.env for agent starter client token generation."
-    exit 1
-  fi
-
   local server_url=""
   local api_key=""
   local api_secret=""
   local identity="web-${RANDOM}-$(date +%s)"
   local token_output=""
   local token=""
+  local agent_env_file="${AGENT_STARTER_DIR}/.env"
 
-  # shellcheck disable=SC1091
-  set -a && source "${AGENT_STARTER_DIR}/.env" && set +a
+  load_env_if_unset "${agent_env_file}"
   server_url="${LIVEKIT_URL:-}"
   api_key="${LIVEKIT_API_KEY:-}"
   api_secret="${LIVEKIT_API_SECRET:-}"
 
   if [[ -z "${server_url}" || -z "${api_key}" || -z "${api_secret}" ]]; then
-    echo "Error: LIVEKIT_URL/LIVEKIT_API_KEY/LIVEKIT_API_SECRET must be set in ${AGENT_STARTER_DIR}/.env."
+    echo "Error: LIVEKIT_URL/LIVEKIT_API_KEY/LIVEKIT_API_SECRET must be set via exported env vars, ${SHARED_ENV_FILE}, or ${agent_env_file}."
     exit 1
   fi
 
@@ -119,6 +138,22 @@ prompt_required() {
     fi
   done
 
+  export "${var_name}=${value}"
+}
+
+prompt_with_default() {
+  local var_name="$1"
+  local default_value="${2:-}"
+  local secret="${3:-false}"
+  local value=""
+
+  if [[ "${secret}" == "true" ]]; then
+    read -rsp "${var_name} [${default_value}]: " value
+    echo
+  else
+    read -rp "${var_name} [${default_value}]: " value
+  fi
+  value="${value:-${default_value}}"
   export "${var_name}=${value}"
 }
 
@@ -182,6 +217,31 @@ elif [[ -z "${AWS_REGION:-}" && -n "${AWS_DEFAULT_REGION:-}" ]]; then
   export AWS_REGION="${AWS_DEFAULT_REGION}"
 fi
 
+if [[ "${FORCE_PROMPT}" == "true" || -z "${LIVEKIT_URL:-}" ]]; then
+  prompt_with_default "LIVEKIT_URL" "${LIVEKIT_URL:-ws://localhost:7880}"
+fi
+if [[ "${FORCE_PROMPT}" == "true" || -z "${LIVEKIT_API_KEY:-}" ]]; then
+  prompt_with_default "LIVEKIT_API_KEY" "${LIVEKIT_API_KEY:-devkey}"
+fi
+if [[ "${FORCE_PROMPT}" == "true" || -z "${LIVEKIT_API_SECRET:-}" ]]; then
+  prompt_required "LIVEKIT_API_SECRET" "true"
+fi
+if [[ "${FORCE_PROMPT}" == "true" || -z "${DEEPGRAM_API_KEY:-}" ]]; then
+  prompt_required "DEEPGRAM_API_KEY" "true"
+fi
+if [[ "${FORCE_PROMPT}" == "true" || -z "${OPENAI_API_KEY:-}" ]]; then
+  prompt_required "OPENAI_API_KEY" "true"
+fi
+if [[ "${FORCE_PROMPT}" == "true" || -z "${CARTESIA_API_KEY:-}" ]]; then
+  prompt_required "CARTESIA_API_KEY" "true"
+fi
+if [[ "${FORCE_PROMPT}" == "true" || -z "${TWILIO_ACCOUNT_SID:-}" ]]; then
+  prompt_required "TWILIO_ACCOUNT_SID"
+fi
+if [[ "${FORCE_PROMPT}" == "true" || -z "${TWILIO_AUTH_TOKEN:-}" ]]; then
+  prompt_required "TWILIO_AUTH_TOKEN" "true"
+fi
+
 echo "Preparing Agent Starter client config..."
 build_agent_starter_client_config
 
@@ -216,14 +276,14 @@ PIDS+=($!)
 echo "Starting Pipecat Quickstart (traditional)..."
 (
   cd "${PIPECAT_QUICKSTART_DIR}"
-  uv run bot.py --host 0.0.0.0 --port "${PIPECAT_QUICKSTART_UI_PORT}"
+  UI_PORT="${PIPECAT_QUICKSTART_UI_PORT}" ./run-all.sh
 ) >"${LOG_DIR}/traditional-pipecat-pipeline.log" 2>&1 &
 PIDS+=($!)
 
 echo "Starting Agent Starter Python (traditional)..."
 (
   cd "${AGENT_STARTER_DIR}"
-  uv run python src/agent.py dev --no-reload
+  AGENT_MODE=dev ./run-all.sh
 ) >"${LOG_DIR}/traditional-livekit-agent.log" 2>&1 &
 PIDS+=($!)
 

@@ -13,9 +13,27 @@ Use `-p` to force re-entering AWS values manually even if env vars are already s
 ./run-all-demos.sh -p
 ```
 
+## Recommended env strategy
+
+Use a shared env file for secrets/API keys:
+
+```bash
+cp .env.shared.example .env.shared
+```
+
+Then keep per-project `.env` files for app-specific non-secret config (ports, URLs, model IDs).
+
+Precedence used by launchers:
+
+1. Already exported shell variables
+2. `integration_demos/.env.shared`
+3. Project-local `.env`
+4. Script defaults or prompt (for missing required values)
+
 ## What it does
 
 - Uses existing environment values if present; prompts only for missing values.
+- Loads shared env values from `.env.shared` when present.
 - Prompts once for:
   - `AWS_ACCESS_KEY_ID`
   - `AWS_SECRET_ACCESS_KEY`

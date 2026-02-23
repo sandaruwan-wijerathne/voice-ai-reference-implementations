@@ -4,6 +4,29 @@ set -euo pipefail
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 BACKEND_DIR="${ROOT_DIR}/vs-voice-ai-backend"
 FRONTEND_DIR="${ROOT_DIR}/vs-voice-ai-frontend"
+SHARED_ENV_FILE="${ROOT_DIR}/../.env.shared"
+PROJECT_ENV_FILE="${ROOT_DIR}/.env"
+
+load_env_if_unset() {
+  local env_file="$1"
+  local line=""
+  local key=""
+  local value=""
+
+  [[ -f "${env_file}" ]] || return 0
+  while IFS= read -r line || [[ -n "${line}" ]]; do
+    line="${line#"${line%%[![:space:]]*}"}"
+    [[ -z "${line}" || "${line}" == \#* ]] && continue
+    [[ "${line}" == export[[:space:]]* ]] && line="${line#export }"
+    if [[ "${line}" =~ ^([A-Za-z_][A-Za-z0-9_]*)[[:space:]]*=(.*)$ ]]; then
+      key="${BASH_REMATCH[1]}"
+      value="${BASH_REMATCH[2]}"
+      if [[ -z "${!key+x}" ]]; then
+        eval "export ${key}=${value}"
+      fi
+    fi
+  done < "${env_file}"
+}
 
 if [[ ! -d "${BACKEND_DIR}" ]]; then
   echo "Error: backend directory not found at ${BACKEND_DIR}"
@@ -31,6 +54,9 @@ while getopts ":p" opt; do
   esac
 done
 shift $((OPTIND - 1))
+
+load_env_if_unset "${SHARED_ENV_FILE}"
+load_env_if_unset "${PROJECT_ENV_FILE}"
 
 is_port_in_use() {
   local port="$1"
