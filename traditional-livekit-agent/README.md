@@ -56,7 +56,7 @@ cd traditional-livekit-agent
 uv sync
 ```
 
-Sign up for [LiveKit Cloud](https://cloud.livekit.io/) then set up the environment by copying `.env.example` to `.env.local` and filling in the required keys:
+Sign up for [LiveKit Cloud](https://cloud.livekit.io/) then set up the environment by copying `.env.example` to `.env` and filling in the required keys:
 
 - `LIVEKIT_URL`
 - `LIVEKIT_API_KEY`
@@ -66,7 +66,7 @@ You can load the LiveKit environment automatically using the [LiveKit CLI](https
 
 ```bash
 lk cloud auth
-lk app env -w -d .env.local
+lk app env -w -d .env
 ```
 
 ## Run the agent

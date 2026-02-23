@@ -54,8 +54,8 @@ done
 mkdir -p "${LOG_DIR}"
 
 build_agent_starter_client_config() {
-  if [[ ! -f "${AGENT_STARTER_DIR}/.env.local" ]]; then
-    echo "Error: missing ${AGENT_STARTER_DIR}/.env.local for agent starter client token generation."
+  if [[ ! -f "${AGENT_STARTER_DIR}/.env" ]]; then
+    echo "Error: missing ${AGENT_STARTER_DIR}/.env for agent starter client token generation."
     exit 1
   fi
 
@@ -67,13 +67,13 @@ build_agent_starter_client_config() {
   local token=""
 
   # shellcheck disable=SC1091
-  set -a && source "${AGENT_STARTER_DIR}/.env.local" && set +a
+  set -a && source "${AGENT_STARTER_DIR}/.env" && set +a
   server_url="${LIVEKIT_URL:-}"
   api_key="${LIVEKIT_API_KEY:-}"
   api_secret="${LIVEKIT_API_SECRET:-}"
 
   if [[ -z "${server_url}" || -z "${api_key}" || -z "${api_secret}" ]]; then
-    echo "Error: LIVEKIT_URL/LIVEKIT_API_KEY/LIVEKIT_API_SECRET must be set in ${AGENT_STARTER_DIR}/.env.local."
+    echo "Error: LIVEKIT_URL/LIVEKIT_API_KEY/LIVEKIT_API_SECRET must be set in ${AGENT_STARTER_DIR}/.env."
     exit 1
   fi
 
