@@ -217,28 +217,28 @@ elif [[ -z "${AWS_REGION:-}" && -n "${AWS_DEFAULT_REGION:-}" ]]; then
   export AWS_REGION="${AWS_DEFAULT_REGION}"
 fi
 
-if [[ "${FORCE_PROMPT}" == "true" || -z "${LIVEKIT_URL:-}" ]]; then
+if [[ "${FORCE_PROMPT}" == "true" ]]; then
   prompt_with_default "LIVEKIT_URL" "${LIVEKIT_URL:-ws://localhost:7880}"
 fi
-if [[ "${FORCE_PROMPT}" == "true" || -z "${LIVEKIT_API_KEY:-}" ]]; then
+if [[ "${FORCE_PROMPT}" == "true" ]]; then
   prompt_with_default "LIVEKIT_API_KEY" "${LIVEKIT_API_KEY:-devkey}"
 fi
-if [[ "${FORCE_PROMPT}" == "true" || -z "${LIVEKIT_API_SECRET:-}" ]]; then
+if [[ "${FORCE_PROMPT}" == "true" ]]; then
   prompt_required "LIVEKIT_API_SECRET" "true"
 fi
-if [[ "${FORCE_PROMPT}" == "true" || -z "${DEEPGRAM_API_KEY:-}" ]]; then
+if [[ "${FORCE_PROMPT}" == "true" ]]; then
   prompt_required "DEEPGRAM_API_KEY" "true"
 fi
-if [[ "${FORCE_PROMPT}" == "true" || -z "${OPENAI_API_KEY:-}" ]]; then
+if [[ "${FORCE_PROMPT}" == "true" ]]; then
   prompt_required "OPENAI_API_KEY" "true"
 fi
-if [[ "${FORCE_PROMPT}" == "true" || -z "${CARTESIA_API_KEY:-}" ]]; then
+if [[ "${FORCE_PROMPT}" == "true" ]]; then
   prompt_required "CARTESIA_API_KEY" "true"
 fi
-if [[ "${FORCE_PROMPT}" == "true" || -z "${TWILIO_ACCOUNT_SID:-}" ]]; then
+if [[ "${FORCE_PROMPT}" == "true" ]]; then
   prompt_required "TWILIO_ACCOUNT_SID"
 fi
-if [[ "${FORCE_PROMPT}" == "true" || -z "${TWILIO_AUTH_TOKEN:-}" ]]; then
+if [[ "${FORCE_PROMPT}" == "true" ]]; then
   prompt_required "TWILIO_AUTH_TOKEN" "true"
 fi
 
