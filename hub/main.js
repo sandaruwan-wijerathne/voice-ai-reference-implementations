@@ -1,6 +1,6 @@
 const integrationApps = [
-  { id: "bedrock", name: "Realtime Bedrock Nova2", url: "http://localhost:3001" },
   { id: "livekit", name: "Realtime LiveKit Nova2", url: "http://localhost:3002" },
+  { id: "bedrock", name: "Realtime Bedrock Nova2", url: "http://localhost:3001" },
   { id: "pipecat", name: "Realtime Pipecat Nova2", url: "http://localhost:5173" },
   { id: "poc", name: "Voice AI POC", url: "http://localhost:5174" },
 ];
