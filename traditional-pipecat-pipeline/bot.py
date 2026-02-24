@@ -54,6 +54,11 @@ from pipecat.transports.daily.transport import DailyParams
 logger.info("✅ All components loaded successfully!")
 
 load_dotenv(override=True)
+SYSTEM_PROMPT = os.getenv("VOICE_SYSTEM_PROMPT")
+if not SYSTEM_PROMPT:
+    raise RuntimeError(
+        "VOICE_SYSTEM_PROMPT is required. Set it via exported env vars, integration_demos/.env.shared, or .env."
+    )
 
 
 async def run_bot(transport: BaseTransport, runner_args: RunnerArguments):
@@ -71,7 +76,7 @@ async def run_bot(transport: BaseTransport, runner_args: RunnerArguments):
     messages = [
         {
             "role": "system",
-            "content": "You are a friendly AI assistant. Respond naturally and keep your answers conversational.",
+            "content": SYSTEM_PROMPT,
         },
     ]
 

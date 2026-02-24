@@ -30,6 +30,8 @@ Precedence used by launchers:
 3. Project-local `.env`
 4. Script defaults or prompt (for missing required values)
 
+`VOICE_SYSTEM_PROMPT` is required and is used as the single system prompt across the integrated demos.
+
 ## What it does
 
 - Uses existing environment values if present; prompts only for missing values.

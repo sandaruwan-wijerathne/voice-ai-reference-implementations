@@ -48,6 +48,7 @@ ensure_set "LIVEKIT_API_SECRET"
 ensure_set "DEEPGRAM_API_KEY"
 ensure_set "OPENAI_API_KEY"
 ensure_set "CARTESIA_API_KEY"
+ensure_set "VOICE_SYSTEM_PROMPT"
 
 AGENT_MODE="${AGENT_MODE:-dev}"
 if [[ "${AGENT_MODE}" != "dev" && "${AGENT_MODE}" != "start" && "${AGENT_MODE}" != "console" ]]; then

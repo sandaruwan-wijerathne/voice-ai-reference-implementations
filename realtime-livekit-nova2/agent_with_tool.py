@@ -58,11 +58,16 @@ async def get_user_preferences(
 
 async def entrypoint(ctx: agents.JobContext):
     await ctx.connect(auto_subscribe=AutoSubscribe.AUDIO_ONLY)
-    
+    system_prompt = os.getenv("VOICE_SYSTEM_PROMPT")
+    if not system_prompt:
+        raise RuntimeError(
+            "VOICE_SYSTEM_PROMPT is required. Set it via exported env vars or integration_demos/.env.shared."
+        )
+
     chat_ctx = ChatContext.empty()
 
     agent = Agent(
-        instructions="You are a helpful voice AI assistant that can check weather and fetch user info by username.",
+        instructions=system_prompt,
         chat_ctx=chat_ctx, 
         tools=[lookup_weather, get_user_profile, get_user_preferences]
     )

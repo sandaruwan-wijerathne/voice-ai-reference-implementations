@@ -1,4 +1,5 @@
 import logging
+import os
 
 from dotenv import load_dotenv
 from livekit.agents import (
@@ -16,15 +17,17 @@ from livekit.plugins.aws.experimental.realtime import RealtimeModel
 logger = logging.getLogger("agent")
 
 load_dotenv(".env")
+SYSTEM_PROMPT = os.getenv("VOICE_SYSTEM_PROMPT")
+if not SYSTEM_PROMPT:
+    raise RuntimeError(
+        "VOICE_SYSTEM_PROMPT is required. Set it via exported env vars, integration_demos/.env.shared, or .env."
+    )
 
 
 class Assistant(Agent):
     def __init__(self) -> None:
         super().__init__(
-            instructions="""You are a helpful voice AI assistant. The user is interacting with you via voice, even if you perceive the conversation as text.
-            You eagerly assist users with their questions by providing information from your extensive knowledge.
-            Your responses are concise, to the point, and without any complex formatting or punctuation including emojis, asterisks, or other symbols.
-            You are curious, friendly, and have a sense of humor.""",
+            instructions=SYSTEM_PROMPT,
         )
 
     # To add tools, use the @function_tool decorator.

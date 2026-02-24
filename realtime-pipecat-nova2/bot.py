@@ -94,9 +94,11 @@ async def run_bot(
 ):
     logger.info(f"Starting bot")
 
-    system_instruction = (
-        "You are a helpful voice AI assistant."
-    )
+    system_instruction = os.getenv("VOICE_SYSTEM_PROMPT")
+    if not system_instruction:
+        raise RuntimeError(
+            "VOICE_SYSTEM_PROMPT is required. Set it via exported env vars or integration_demos/.env.shared."
+        )
 
     llm = AWSNovaSonicLLMService(
         secret_access_key=os.getenv("AWS_SECRET_ACCESS_KEY"),
