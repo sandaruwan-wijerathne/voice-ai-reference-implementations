@@ -7,8 +7,7 @@ If you want the most straightforward path for a single stack, follow the officia
 Official links:
 - LiveKit Agent Starter (Python): https://github.com/livekit-examples/agent-starter-python
 - Pipecat Quickstart: https://github.com/pipecat-ai/pipecat-quickstart
-- AWS Nova Sonic docs: https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-nova-sonic.html
-- AWS Bedrock runtime code examples: https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/python/example_code/bedrock-runtime
+- AWS Nova speech-to-speech workshops: https://github.com/aws-samples/amazon-nova-samples/tree/main/speech-to-speech/workshops
 
 Run all implementations and open a single dashboard page:
 
