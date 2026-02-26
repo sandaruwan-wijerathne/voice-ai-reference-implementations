@@ -21,11 +21,10 @@ LAST_NAME = "AI-booking"
 NAME = "AI-booking"
 NOTES = "N/A"
 
-SYSTEM_INSTRUCTION_VOICE = os.getenv("VOICE_SYSTEM_PROMPT")
-if not SYSTEM_INSTRUCTION_VOICE:
-    raise RuntimeError(
-        "VOICE_SYSTEM_PROMPT is required. Set it via exported env vars, integration_demos/.env.shared, or .env."
-    )
+SYSTEM_INSTRUCTION_VOICE = (
+    "You are a helpful, friendly voice AI assistant. Keep responses clear and concise, "
+    "ask one question at a time when needed, and maintain a natural conversational tone."
+)
 
 # Audio configuration
 INPUT_SAMPLE_RATE = 24000  # Nova Sonic expects 16kHz input

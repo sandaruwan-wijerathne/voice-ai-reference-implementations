@@ -45,7 +45,6 @@ load_env_if_unset "${PROJECT_ENV_FILE}"
 ensure_set "DEEPGRAM_API_KEY"
 ensure_set "OPENAI_API_KEY"
 ensure_set "CARTESIA_API_KEY"
-ensure_set "VOICE_SYSTEM_PROMPT"
 
 UI_PORT="${UI_PORT:-7861}"
 UI_HOST="${UI_HOST:-0.0.0.0}"

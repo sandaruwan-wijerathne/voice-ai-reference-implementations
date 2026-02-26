@@ -1,5 +1,4 @@
 import json
-import os
 
 class S2sEvent:
   # Default configuration values
@@ -11,11 +10,10 @@ class S2sEvent:
   #DEFAULT_SYSTEM_PROMPT = "You are a friend. The user and you will engage in a spoken dialog " \
   #            "exchanging the transcripts of a natural real-time conversation. Keep your responses short, " \
   #            "generally two or three sentences for chatty scenarios."
-  DEFAULT_SYSTEM_PROMPT = os.getenv("VOICE_SYSTEM_PROMPT")
-  if not DEFAULT_SYSTEM_PROMPT:
-    raise RuntimeError(
-      "VOICE_SYSTEM_PROMPT is required. Set it via exported env vars or integration_demos/.env.shared."
-    )
+  DEFAULT_SYSTEM_PROMPT = (
+    "You are a helpful, friendly voice AI assistant. Keep responses clear and concise, "
+    "ask one question at a time when needed, and maintain a natural conversational tone."
+  )
 
   DEFAULT_AUDIO_INPUT_CONFIG = {
         "mediaType":"audio/lpcm",

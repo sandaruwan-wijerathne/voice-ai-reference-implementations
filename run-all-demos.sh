@@ -241,13 +241,6 @@ fi
 if [[ "${FORCE_PROMPT}" == "true" ]]; then
   prompt_required "TWILIO_AUTH_TOKEN" "true"
 fi
-if [[ "${FORCE_PROMPT}" == "true" ]]; then
-  prompt_required "VOICE_SYSTEM_PROMPT"
-elif [[ -z "${VOICE_SYSTEM_PROMPT:-}" ]]; then
-  echo "Error: VOICE_SYSTEM_PROMPT is required. Set it in exported env vars or ${SHARED_ENV_FILE}."
-  exit 1
-fi
-
 echo "Preparing Agent Starter client config..."
 build_agent_starter_client_config
 

@@ -8,13 +8,10 @@ load_dotenv(override=False)
 
 async def entrypoint(ctx: agents.JobContext):
     await ctx.connect(auto_subscribe=AutoSubscribe.AUDIO_ONLY)
-    system_prompt = os.getenv("VOICE_SYSTEM_PROMPT")
-    if not system_prompt:
-        raise RuntimeError(
-            "VOICE_SYSTEM_PROMPT is required. Set it via exported env vars or integration_demos/.env.shared."
-        )
 
-    agent = Agent(instructions=system_prompt)
+    agent = Agent(
+        instructions="You are a helpful, friendly voice AI assistant. Keep responses clear and concise, ask one question at a time when needed, and maintain a natural conversational tone."
+    )
     realtime_model = RealtimeModel()
     realtime_model.model_id = "amazon.nova-2-sonic-v1:0"
     session = AgentSession(llm=realtime_model)

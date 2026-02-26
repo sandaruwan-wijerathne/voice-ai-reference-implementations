@@ -30,7 +30,57 @@ Precedence used by launchers:
 3. Project-local `.env`
 4. Script defaults or prompt (for missing required values)
 
-`VOICE_SYSTEM_PROMPT` is required and is used as the single system prompt across the integrated demos.
+## Setup each project once
+
+Run these once before using individual launchers (or before the unified hub if dependencies are not installed yet):
+
+### Realtime Bedrock Nova2
+
+```bash
+cd realtime-bedrock-nova2
+uv sync
+cd ui && npm install
+```
+
+### Realtime LiveKit Nova2
+
+```bash
+cd realtime-livekit-nova2
+uv sync
+cd ui && npm install
+```
+
+### Realtime Pipecat Nova2
+
+```bash
+cd realtime-pipecat-nova2
+uv sync
+cd ui && npm install
+```
+
+### Traditional LiveKit Agent
+
+```bash
+cd traditional-livekit-agent
+uv sync
+```
+
+### Traditional Pipecat Pipeline
+
+```bash
+cd traditional-pipecat-pipeline
+uv sync
+```
+
+### Voice AI POC
+
+```bash
+cd voice-ai-poc/vs-voice-ai-backend
+poetry install
+
+cd ../vs-voice-ai-frontend
+npm install
+```
 
 ## What it does
 

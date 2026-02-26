@@ -6,8 +6,8 @@ const integrationApps = [
 ];
 
 const traditionalApps = [
-  { id: "pipecatQuickstart", name: "Traditional Pipecat Pipeline", url: "http://localhost:7861" },
   { id: "agentStarterPython", name: "Traditional LiveKit Agent", url: "http://localhost:8090/hub/agent-starter-client.html" },
+  { id: "pipecatQuickstart", name: "Traditional Pipecat Pipeline", url: "http://localhost:7861" },
 ];
 
 function setStatus(badge, isUp) {
