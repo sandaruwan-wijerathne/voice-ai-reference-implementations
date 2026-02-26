@@ -1,5 +1,15 @@
 # Integration Demos Unified Launcher
 
+This is a centralized place to evaluate multiple frameworks and approaches for voice agents in one workspace.
+
+If you want the most straightforward path for a single stack, follow the official GitHub quickstarts or AWS examples directly instead of going through this integration repo. The official sources usually need less cross-project configuration.
+
+Official links:
+- LiveKit Agent Starter (Python): https://github.com/livekit-examples/agent-starter-python
+- Pipecat Quickstart: https://github.com/pipecat-ai/pipecat-quickstart
+- AWS Nova Sonic docs: https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-nova-sonic.html
+- AWS Bedrock runtime code examples: https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/python/example_code/bedrock-runtime
+
 Run all implementations and open a single dashboard page:
 
 ```bash
